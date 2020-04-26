@@ -6,8 +6,9 @@ pipeline {
   }
   stages {
     stage('Initialise') {
+      withAWS(region:'eu-west-2',credentials:'aws-met-office-test-master') {
       steps {
-        withAWS(region:'eu-west-2',credentials:'aws-met-office-test-master') {
+        
                 accountid = sh(script: 'aws sts get-caller-identity', returnStdout: true).trim()
                 echo accountid 
         }
@@ -16,16 +17,18 @@ pipeline {
     stage('Test and Build') {
       parallel {
         stage('Run Tests') {
+          withAWS(region:'eu-west-2',credentials:'aws-met-office-test-master') {
           steps {
-            withAWS(region:'eu-west-2',credentials:'aws-met-office-test-master') {
+            
                     accountid = sh(script: 'aws sts get-caller-identity', returnStdout: true).trim()
                     echo accountid 
             }
           }
         }
         stage('Deploy Artifacts') {
+          withAWS(region:'eu-west-2',credentials:'aws-met-office-test-master') {
           steps {
-            withAWS(region:'eu-west-2',credentials:'aws-met-office-test-master') {
+            
                     accountid = sh(script: 'aws sts get-caller-identity', returnStdout: true).trim()
                     echo accountid 
             }
