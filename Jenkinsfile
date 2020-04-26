@@ -27,11 +27,10 @@ pipeline {
   }
 }
 
-def assumeRole() {
-  withAWS(region:'eu-west-2',credentials:'test-master') {
-    //withAWS(profile:'test-master') {
+def assumeRole(String Account = "005402609678", String Region = "eu-west-2", String Credentials = "test-master", String Role = "cloud-team-admin") {
+  withAWS(region:"${Region}",credentials:"${Credentials}") {
     script {
-      accounts = sh (script: 'aws sts assume-role --role-arn arn:aws:iam::005402609678:role/cloud-team-admin --role-session-name cloud-team-admin --output text', returnStdout: true).split()
+      accounts = sh (script: 'aws sts assume-role --role-arn arn:aws:iam::"${account}":role/"${Role}" --role-session-name cloud-team-admin --output text', returnStdout: true).split()
       echo env.AWS_ACCESS_KEY_ID = accounts[4]
       echo env.AWS_SECRET_ACCESS_KEY = accounts[6]
       echo env.AWS_SESSION_TOKEN = accounts[7]            
