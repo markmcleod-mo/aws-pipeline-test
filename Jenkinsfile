@@ -3,55 +3,52 @@ pipeline {
   environment {
     CI = 'true'
     HOME = '.'
+    npm_config_cache = 'npm-cache'
   }
   stages {
-    stage('Initialise') {
-      withAWS(region:'eu-west-2',credentials:'aws-met-office-test-master') {
+    stage('Install Packages') {
       steps {
-        
-                accountid = sh(script: 'aws sts get-caller-identity', returnStdout: true).trim()
-                echo accountid 
-        }
+        sh 'pwd'
       }
     }
     stage('Test and Build') {
       parallel {
         stage('Run Tests') {
-          withAWS(region:'eu-west-2',credentials:'aws-met-office-test-master') {
           steps {
-            
-                    accountid = sh(script: 'aws sts get-caller-identity', returnStdout: true).trim()
-                    echo accountid 
-            }
+            sh 'java -version'
           }
         }
-        stage('Deploy Artifacts') {
-          withAWS(region:'eu-west-2',credentials:'aws-met-office-test-master') {
+        stage('Create Build Artifacts') {
           steps {
-            
-                    accountid = sh(script: 'aws sts get-caller-identity', returnStdout: true).trim()
-                    echo accountid 
-            }
+            sh 'ls -al'
           }
         }
       }
     }
-    stage('Deployment Staging And Prod Parallel') {
+    stage('Deployment') {
       parallel {
         stage('Staging') {
           when {
             branch 'staging'
           }
           steps {
-            echo "Only when master branch - production release only"
+            withAWS(region:'<your-bucket-region>',credentials:'<AWS-Staging-Jenkins-Credential-ID>') {
+              s3Delete(bucket: '<bucket-name>', path:'**/*')
+              s3Upload(bucket: '<bucket-name>', workingDir:'build', includePathPattern:'**/*');
+            }
+            mail(subject: 'Staging Build', body: 'New Deployment to Staging', to: 'jenkins-mailing-list@mail.com')
           }
         }
         stage('Production') {
           when {
-            branch 'master'
+            branch 'master1'
           }
           steps {
-              echo "Only when master branch - production release only"
+            withAWS(region:'<your-bucket-region>',credentials:'<AWS-Production-Jenkins-Credential-ID>') {
+              s3Delete(bucket: '<bucket-name>', path:'**/*')
+              s3Upload(bucket: '<bucket-name>', workingDir:'build', includePathPattern:'**/*');
+            }
+            mail(subject: 'Production Build', body: 'New Deployment to Production', to: 'jenkins-mailing-list@mail.com')
           }
         }
       }
