@@ -1,5 +1,7 @@
 pipeline {
-
+  agent {
+    label = 'any'
+  }
   environment {
     CI = 'true'
     HOME = '.'
