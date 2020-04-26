@@ -14,6 +14,9 @@ pipeline {
             echo env.AWS_ACCESS_KEY_ID = accounts[4]
             echo env.AWS_SECRET_ACCESS_KEY = accounts[6]
             echo env.AWS_SESSION_TOKEN = accounts[7]
+            echo accounts[4]
+            echo accounts[6]
+            echo accounts[7]
             echo "${accounts}"
             sh "aws organizations list-accounts --output text"
           }
