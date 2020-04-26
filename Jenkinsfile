@@ -7,7 +7,7 @@ pipeline {
   stages {
     stage('Install Packages') {
       steps {
-        assumeRole()
+        assumeRole("005402609678", "eu-west-2", "test-master","cloud-team-admin")
       }
     }
     stage('Test and Build') {
