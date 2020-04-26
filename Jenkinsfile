@@ -11,9 +11,9 @@ pipeline {
          //withAWS(profile:'test-master') {
           script {
             accounts = sh (script: 'aws sts assume-role --role-arn arn:aws:iam::005402609678:role/cloud-team-admin --role-session-name cloud-team-admin --output text', returnStdout: true).split()
-            env.AWS_ACCESS_KEY_ID = accounts[5]
-            env.AWS_SECRET_ACCESS_KEY = accounts[7]
-            env.AWS_SESSION_TOKEN = accounts[8]
+            env.AWS_ACCESS_KEY_ID = accounts[4]
+            env.AWS_SECRET_ACCESS_KEY = accounts[6]
+            env.AWS_SESSION_TOKEN = accounts[7]
             echo "${accounts}"
             sh "aws organizations list-accounts --output text"
           }
