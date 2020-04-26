@@ -9,8 +9,8 @@ pipeline {
       steps {
         withAWS(region:'eu-west-2',credentials:'test-master') {
           script {
-            accounts = sh (script: 'aws organizations list-accounts --output text', returnStdout: true).split()
-            echo accounts
+            //accounts = sh (script: 'aws sts assume-role --role-arn arn:aws:iam::005402609678:role/cloud-team-admin --role-session-name cloud-team-admin --output text', returnStdout: true).split()
+            sh "aws"
           }
         }
       }
