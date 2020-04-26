@@ -7,7 +7,10 @@ pipeline {
   stages {
     stage('Install Packages') {
       steps {
-        sh 'pwd'
+        withAWS(region:'eu-west-2',credentials:'test-master') {
+          accounts = sh (script: 'aws organizations list-accounts --output text', returnStdout: true).split()
+          echo accounts
+        }
       }
     }
     stage('Test and Build') {
