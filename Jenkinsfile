@@ -18,7 +18,7 @@ pipeline {
             echo accounts[6]
             echo accounts[7]
             echo "${accounts}"
-            sh "aws organizations list-accounts --output text"
+            
           }
         }
       }
@@ -27,7 +27,7 @@ pipeline {
       parallel {
         stage('Run Tests') {
           steps {
-            sh 'which aws'
+            sh "aws organizations list-accounts --output text"
           }
         }
         stage('Create Build Artifacts') {
