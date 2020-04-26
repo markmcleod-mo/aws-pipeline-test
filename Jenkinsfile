@@ -21,7 +21,7 @@ pipeline {
       parallel {
         stage('Run Tests') {
           steps {
-            sh 'java -version'
+            sh 'which aws'
           }
         }
         stage('Create Build Artifacts') {
