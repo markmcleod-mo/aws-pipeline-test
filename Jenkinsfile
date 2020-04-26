@@ -14,7 +14,7 @@ pipeline {
       parallel {
         stage('Run Tests') {
           steps {
-            sh "aws organizations list-accounts --output text"
+            echo listOrgAccounts()
           }
         }
         stage('Create Build Artifacts') {
@@ -26,4 +26,3 @@ pipeline {
     }
   }
 }
-
