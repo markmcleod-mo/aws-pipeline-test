@@ -7,10 +7,11 @@ pipeline {
   stages {
     stage('Install Packages') {
       steps {
-        withAWS(region:'eu-west-2',credentials:'test-master') {
+       // withAWS(region:'eu-west-2',credentials:'test-master') {
+         withAWS(profile:'test-master') {
           script {
             //accounts = sh (script: 'aws sts assume-role --role-arn arn:aws:iam::005402609678:role/cloud-team-admin --role-session-name cloud-team-admin --output text', returnStdout: true).split()
-            sh "aws organizations list-accounts --profile test-master"
+            sh "aws organizations list-accounts"
           }
         }
       }
