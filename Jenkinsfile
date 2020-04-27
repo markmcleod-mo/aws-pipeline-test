@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Assume Master Account') {
       steps {
-        assumeRole()
+        listOrgAccounts()
       }
     }
     stage('Validate Template') {
@@ -21,10 +21,7 @@ pipeline {
         parallel {
           stage("List All Org Account ID's") {
             steps {
-              script {
-                accounts = listOrgAccounts("DEV")
-                echo "${accounts}"
-              }
+                echo "suppose to list accounts"
             }
           }
           stage('Display AWS Identity') {
