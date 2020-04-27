@@ -16,6 +16,9 @@
   def builds = []
   def tasks = [:]
 
+  def REGION = 'eu-west-2'
+  def CREDS = 'test-master'
+
   /*
     Initialise stage:
   */
