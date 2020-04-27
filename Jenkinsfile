@@ -10,6 +10,7 @@ pipeline {
     stage('Assume Master Account') {
       steps {
         listOrgAccounts()
+        //awsIdentity()
       }
     }
     stage('Validate Template') {
