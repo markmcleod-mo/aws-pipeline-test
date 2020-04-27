@@ -14,8 +14,10 @@ pipeline {
         parallel {
           stage("List All Org Account ID's") {
             steps {
-              accounts = listOrgAccounts()
-              echo "${accounts}"
+              script {
+                accounts = listOrgAccounts()
+                echo "${accounts}"
+              }
             }
           }
           stage('Do some other stuff') {
