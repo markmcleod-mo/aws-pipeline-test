@@ -10,6 +10,11 @@ pipeline {
         assumeRole()
       }
     }
+    stage('Validate Template') {
+      steps {
+        cfnValidate(file:'jenkins-temp.yaml')
+      }
+    }
     stage('Parallel Process') {
         parallel {
           stage("List All Org Account ID's") {

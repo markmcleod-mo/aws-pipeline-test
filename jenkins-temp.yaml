@@ -1,0 +1,95 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create EC2 Instances to be used with Jenkins
+
+Parameters:
+  CloudLog:
+    Type: String
+  SSM: 
+    Type: String
+  SecurityGroup: 
+    Type: String
+  IAMRole: 
+    Type: String
+
+Resources:
+  CreateLog:
+    Type: AWS::Logs::LogGroup
+    Properties: 
+      LogGroupName: !Ref CloudLog
+
+  BasicParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Ref SSM
+      Type: String
+      Value: Password not ready yet, try again later
+
+  CreateSecuritygroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      GroupDescription: Made_via_cloudformation
+      GroupName: !Ref SecurityGroup
+      SecurityGroupIngress:
+        - IpProtocol: TCP
+          FromPort: 8080
+          ToPort: 8080
+          CidrIp: 151.170.240.200/32
+      VpcId: vpc-a0bfcac8
+
+
+  CreateIAM:
+    Type: AWS::IAM::Role
+    Properties: 
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+              - ec2.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMFullAccess
+      RoleName: !Ref IAMRole
+
+  CreateInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties: 
+      Path: /
+      Roles: 
+        - !Ref CreateIAM
+
+  CreateEC2:
+    Type: AWS::EC2::Instance
+    Properties: 
+      InstanceType: t3.micro
+      ImageId: ami-0cb55f6832cd24d59
+      IamInstanceProfile: !Ref CreateInstanceProfile
+      SecurityGroupIds: 
+        - !GetAtt CreateSecuritygroup.GroupId
+      UserData: 
+        Fn::Base64: !Sub |
+          #!/bin/bash -xe
+          sudo yum update -y
+          sudo yum install java git curl -y
+          sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+          sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key
+          sudo yum install jenkins -y
+          sudo service jenkins start -y
+          while ! [ -f /var/lib/jenkins/secrets/initialAdminPassword ];
+          do
+            sleep 1s;
+          done;
+          sleep 1s
+          sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+          password=`sudo cat /var/lib/jenkins/secrets/initialAdminPassword`
+          echo $password
+          aws ssm put-parameter --name "${BasicParameter}" --type "String" --value "$password" --overwrite --region eu-west-2
+          aws s3 cp s3://cloud-team-jenkins-pipeline/aws/config ~/.aws/config --sse aws:kms --sse-kms-key-id 097c1ca1-0033-498f-9a59-54eb3829eda2
+          aws s3 cp s3://cloud-team-jenkins-pipeline/aws/credentials ~/.aws/credentials --sse aws:kms --sse-kms-key-id 097c1ca1-0033-498f-9a59-54eb3829eda2
+
+Outputs:
+  EC2URL:
+    Description: Add :8080 to the end of the DNS to get your URL
+    Value: !GetAtt CreateEC2.PublicDnsName
