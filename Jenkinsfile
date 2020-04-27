@@ -4,6 +4,9 @@ pipeline {
     CI = 'true'
     HOME = '.'
   }
+  options {
+    withAWS(region:"${Region}",credentials:"${Creds}")
+  }
   stages {
     stage('Assume Master Account') {
       steps {
