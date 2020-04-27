@@ -12,7 +12,7 @@ pipeline {
     }
     stage('Validate Template') {
       steps {
-        cfnValidate(file:'*.yaml')
+        validateTemplates()
       }
     }
     stage('Parallel Process') {
