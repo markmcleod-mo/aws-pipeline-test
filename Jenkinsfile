@@ -22,7 +22,7 @@ pipeline {
         parallel {
           stage("List All Org Account ID's") {
             steps {
-                echo "suppose to list accounts"
+                echo "LIST OF ACCOUNTS" + getListOrgAccts()
             }
           }
           stage('Display AWS Identity') {
