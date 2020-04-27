@@ -12,7 +12,7 @@ pipeline {
     }
     stage('Parallel Process') {
         parallel {
-          stage('List All Org Account ID''s') {
+          stage("List All Org Account ID's") {
             steps {
               accounts = listOrgAccounts()
               echo "${accounts}"
