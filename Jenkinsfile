@@ -13,7 +13,7 @@ pipeline {
 
     stage('List Account') {
       steps {
-        echo listOrgAccounts()
+        listOrgAccounts(project.jobId)
       }
     }
     stage('Do some other stuff') {
