@@ -7,7 +7,7 @@ pipeline {
     CREDS = 'test-master'
   }
   options {
-    withAWS(region:"${REGION}",credentials:"${CREDS}")
+    withAWS(region:"${env.REGION}",credentials:"${env.CREDS}")
   }
   stages {
     stage('Assume Master Account') {
