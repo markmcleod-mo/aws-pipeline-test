@@ -10,7 +10,7 @@ pipeline {
     stage('Assume Master Account') {
       steps {
         //listOrgAccounts()
-        assumeRole()
+        //assumeRole()
         awsIdentity()
       }
     }
