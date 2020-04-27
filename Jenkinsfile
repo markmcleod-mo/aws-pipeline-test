@@ -5,16 +5,17 @@ pipeline {
     HOME = '.'
   }
   stages {
-    stage('Install Packages') {
+    stage('Assume Master Account') {
       steps {
         assumeRole()
       }
     }
     stage('Parallel Process') {
         parallel {
-          stage('List Account') {
+          stage('List All Org Account ID''s') {
             steps {
-              listOrgAccounts()
+              accounts = listOrgAccounts()
+              echo "${accounts}"
             }
           }
           stage('Do some other stuff') {
