@@ -16,8 +16,7 @@
   def builds = []
   def tasks = [:]
 
-  def env.REGION = 'eu-west-2'
-  def env.CREDS = 'test-master'
+
 
   /*
     Initialise stage:
@@ -25,6 +24,8 @@
   stage 'Initialise'
 
     node {
+      env.REGION = 'eu-west-2'
+      env.CREDS = 'test-master'
       //Initialise what needs to be built and checkout the SCM
       checkout scm
       //Find all of the accounts in the management OU only, for now
