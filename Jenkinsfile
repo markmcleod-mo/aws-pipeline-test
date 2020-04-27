@@ -29,10 +29,20 @@
       //Initialise what needs to be built and checkout the SCM
       checkout scm
       //Find all of the accounts in the management OU only, for now
-      builds = org.getListOrgAccts()
+      //builds = org.getListOrgAccts()
+      builds = ['327472442310',
+'881927508427',
+'892305036901',
+'005402609678',
+'170090038151',
+'363808065938',
+'172335553610',
+'854797681585',
+'639348004358',
+'398762458792']
       //remove the master account, this is built only once to initialise the landing zone
       echo "Pipeline - Landing Zone Accounts: ${builds}"
-      awsIdentity()
+      //awsIdentity()
     }
 
   /*
