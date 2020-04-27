@@ -14,7 +14,7 @@ pipeline {
         parallel {
           stage('List Account') {
             steps {
-              sh "aws organizations list-accounts --output text"
+              listOrgAccounts()
             }
           }
           stage('Do some other stuff') {
