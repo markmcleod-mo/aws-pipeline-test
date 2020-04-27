@@ -3,9 +3,11 @@ pipeline {
   environment {
     CI = 'true'
     HOME = '.'
+    REGION = 'eu-west-2'
+    CREDS = 'test-master'
   }
   options {
-    withAWS(region:"${Region}",credentials:"${Creds}")
+    withAWS(region:"${REGION}",credentials:"${CREDS}")
   }
   stages {
     stage('Assume Master Account') {
