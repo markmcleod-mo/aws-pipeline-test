@@ -15,14 +15,14 @@ pipeline {
           stage("List All Org Account ID's") {
             steps {
               script {
-                accounts = listOrgAccounts()
+                accounts = listOrgAccounts("DEV")
                 echo "${accounts}"
               }
             }
           }
-          stage('Do some other stuff') {
+          stage('Display AWS Identity') {
             steps {
-              sh 'ls -al'
+              awsIdentity()
             }
           }
         }
