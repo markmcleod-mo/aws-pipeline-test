@@ -12,7 +12,7 @@ pipeline {
     }
     stage('Validate Template') {
       steps {
-        cfnValidate(file:'jenkins-temp.yaml')
+        cfnValidate(file:'*.yaml')
       }
     }
     stage('Parallel Process') {
