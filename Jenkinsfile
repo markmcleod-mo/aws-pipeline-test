@@ -13,7 +13,7 @@ pipeline {
 
     stage('List Account') {
       steps {
-        listOrgAccounts(project.jobId)
+        listOrgAccounts("${env.BUILD_NUMBER}")
       }
     }
     stage('Do some other stuff') {
