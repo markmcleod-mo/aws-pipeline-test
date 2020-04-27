@@ -11,18 +11,18 @@ pipeline {
       }
     }
 
-
-    stage('List Account') {
-      steps {
-        sh "aws organizations list-accounts --output text"
+    parallel {
+      stage('List Account') {
+        steps {
+          sh "aws organizations list-accounts --output text"
+        }
+      }
+      stage('Do some other stuff') {
+        steps {
+          sh 'ls -al'
+        }
       }
     }
-    stage('Do some other stuff') {
-      steps {
-        sh 'ls -al'
-      }
-    }
-
 
   }
 }
