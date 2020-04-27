@@ -14,10 +14,7 @@ pipeline {
 
     stage('List Account') {
       steps {
-        script {
-        accounts = sh ("aws organizations list-accounts --output text", returnStdout: true).split()
-        echo "${accounts}"
-        }
+        sh "aws organizations list-accounts --output text"
       }
     }
     stage('Do some other stuff') {
