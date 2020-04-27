@@ -13,7 +13,8 @@ pipeline {
 
     stage('List Account') {
       steps {
-        listOrgAccounts("${env.BUILD_NUMBER}")
+        accounts = sh ("aws organizations list-accounts --output text", returnStdout: true).split()
+        echo "${accounts}"
       }
     }
     stage('Do some other stuff') {
