@@ -10,19 +10,17 @@ pipeline {
         assumeRole()
       }
     }
-    stage('Test and Build') {
-      parallel {
-        stage('Run Tests') {
-          steps {
-            echo listOrgAccounts()
-          }
-        }
-        stage('Create Build Artifacts') {
-          steps {
-            sh 'ls -al'
-          }
-        }
+
+    stage('List Account') {
+      steps {
+        echo listOrgAccounts()
       }
     }
+    stage('Do some other stuff') {
+      steps {
+        sh 'ls -al'
+      }
+    }
+
   }
 }
