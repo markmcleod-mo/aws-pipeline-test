@@ -36,7 +36,7 @@
     }
 
   stage 'Lint'
-    //Loop through all accounts found and build a paralle task for each
+    //Loop through all accoun  ts found and build a paralle task for each
     for(String item: accounts) {
       def account_path = item
       tasks["${item}"] = {
