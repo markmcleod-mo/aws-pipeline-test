@@ -56,9 +56,9 @@
       tasks["${item}"] = {
         node {
           //Each node is in a seperate folder, possiblly a seperate agent, need to checkout the SCM
-          //checkout scm
+          checkout scm
           //withAWS(region:"${env.REGION}",credentials:"${env.CREDS}", role:"cloud-team-admin", roleAccount:"${item}", externalId: "cloud-team-admin") {
-            assumeRole(Account="${item}")
+            assumeRole(Acct="${item}")
           //}
         }
       }
