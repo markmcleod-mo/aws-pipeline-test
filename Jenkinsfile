@@ -16,7 +16,7 @@
       //Initialise what needs to be built and checkout the SCM
       checkout scm
       //Find all of the accounts in the management OU only, for now
-      accounts = org.getListOrgAccts("005402609678", "cloud-team-admin", "MGMT")
+      accounts = org.getListOrgAccts("005402609678", "cloud-team-admin", "CI")
       //builds = ['327472442310','881927508427','892305036901','005402609678','170090038151','172335553610']
       echo "Pipeline - : ${accounts}"
       //awsIdentity()
