@@ -57,9 +57,9 @@
         node {
           //Each node is in a seperate folder, possiblly a seperate agent, need to checkout the SCM
           //checkout scm
-          withAWS(region:"${env.REGION}",credentials:"${env.CREDS}", role:"cloud-team-admin", roleAccount:"${item}", externalId: "cloud-team-admin") {
-            validateTemplates(path="${env.WORKSPACE}")
-          }
+          //withAWS(region:"${env.REGION}",credentials:"${env.CREDS}", role:"cloud-team-admin", roleAccount:"${item}", externalId: "cloud-team-admin") {
+            validateTemplates(path="${env.WORKSPACE}",Account="${item}")
+          //}
         }
       }
     }
