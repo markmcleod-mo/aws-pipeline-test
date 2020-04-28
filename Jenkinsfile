@@ -29,20 +29,15 @@
       //Initialise what needs to be built and checkout the SCM
       checkout scm
       //Find all of the accounts in the management OU only, for now
-      builds = org.getListOrgAccts("005402609678", "cloud-team-admin", "DEV")
+      accounts = org.getListOrgAccts("005402609678", "cloud-team-admin", "DEV")
       //builds = ['327472442310','881927508427','892305036901','005402609678','170090038151','172335553610','398762458792']
-      //remove the master account, this is built only once to initialise the landing zone
-      echo "Pipeline - Landing Zone Accounts: ${builds}"
+      echo "Pipeline - : ${accounts}"
       //awsIdentity()
     }
 
-  /*
-    Testing stage: Run on all branches
-                   Terraform actions (test => Init, fmt, validate)
-  */
   stage 'Lint'
     //Loop through all accounts found and build a paralle task for each
-    for(String item: builds) {
+    for(String item: accounts) {
       def account_path = item
       tasks["${item}"] = {
         node {
