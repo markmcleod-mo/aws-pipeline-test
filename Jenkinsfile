@@ -1,22 +1,9 @@
-/* name: Jenkinsfile Groovy Pipeline - Nationwide Building Society - Landing Zones
-   created: May 25, 2019
-   Author: Mark McLEod
-   Revisions: Mark McLeod (4/06/2019)  - Fix account discovery and implement 'Initialise' Stage
-              Mark McLeod (5/06/2019)  - Review, JavaDoc and remove redundent code
-              Mark McLeod (11/06/2019) - Changes to Slack notifications and try,catch,finally
-*/
-
-  /*
-    Global Environment Variables
-  */
   def buildNumber = env.BUILD_NUMBER
   def workspace = env.WORKSPACE
   def buildUrl = env.BUILD_URL
 
   def builds = []
   def tasks = [:]
-
-
 
   /*
     Initialise stage:
@@ -29,8 +16,8 @@
       //Initialise what needs to be built and checkout the SCM
       checkout scm
       //Find all of the accounts in the management OU only, for now
-      accounts = org.getListOrgAccts("005402609678", "cloud-team-admin", "DEV")
-      //builds = ['327472442310','881927508427','892305036901','005402609678','170090038151','172335553610','398762458792']
+      accounts = org.getListOrgAccts("005402609678", "cloud-team-admin", "MGMT")
+      //builds = ['327472442310','881927508427','892305036901','005402609678','170090038151','172335553610']
       echo "Pipeline - : ${accounts}"
       //awsIdentity()
     }
