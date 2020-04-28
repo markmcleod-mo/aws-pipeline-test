@@ -65,7 +65,7 @@
     }
 
     try {
-      tasks
+      parallel tasks
     } catch (e) {
       // If there was an exception thrown, the build failed
       throw e
