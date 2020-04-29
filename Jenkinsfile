@@ -48,8 +48,8 @@
       tasks["${item}"] = {
         node {
           echo "account=${account_path}"
-          checkout scm
-          deployStack("Jenkins-Pipeline", "${account_path}", "cloud-team-admin")
+          //checkout scm
+          //deployStack("Jenkins-Pipeline", "${account_path}", "cloud-team-admin")
         }
       }
     }
@@ -70,8 +70,8 @@
       tasks["${item}"] = {
         node {
           echo "account=${account_path}"
-//          checkout scm
-          //describeStack("Jenkins-Pipeline", "${account_path}", "cloud-team-admin")
+          checkout scm
+          describeStack("Jenkins-Pipeline", "${account_path}", "cloud-team-admin")
         }
       }
     }
