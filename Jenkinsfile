@@ -41,7 +41,7 @@
       tasks = [:]
     }
 
-    stage 'Desribe Stackset'
+    stage 'Deploy Stack'
     //Loop through all accoun  ts found and build a paralle task for each
     for(String item: accounts) {
       def account_path = item
@@ -63,7 +63,7 @@
       tasks = [:]
     }
 
-    stage 'Desribe Stackset'
+    stage 'Desribe Stack'
     //Loop through all accoun  ts found and build a paralle task for each
     for(String item: accounts) {
       def account_path = item
@@ -71,7 +71,7 @@
         node {
           echo "account=${account_path}"
           checkout scm
-          describeStack("Jenkins-Pipeline", "${account_path}", "cloud-team-admin")
+          //describeStack("Jenkins-Pipeline", "${account_path}", "cloud-team-admin")
         }
       }
     }
