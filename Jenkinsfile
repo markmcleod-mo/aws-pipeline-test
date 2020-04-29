@@ -49,6 +49,28 @@
         node {
           echo "account=${account_path}"
           checkout scm
+          deployStack("Jenkins-Pipeline", "${account_path}", "cloud-team-admin")
+        }
+      }
+    }
+
+    try {
+      parallel tasks
+    } catch (e) {
+      // If there was an exception thrown, the build failed
+      throw e
+    } finally {
+      tasks = [:]
+    }
+
+    stage 'Desribe Stackset'
+    //Loop through all accoun  ts found and build a paralle task for each
+    for(String item: accounts) {
+      def account_path = item
+      tasks["${item}"] = {
+        node {
+          echo "account=${account_path}"
+          checkout scm
           describeStack("Jenkins-Pipeline", "${account_path}", "cloud-team-admin")
         }
       }
