@@ -49,7 +49,7 @@
         node {
           echo "account=${account_path}"
           checkout scm
-          describeStackset("jenkins-pipeline", "${account_path}", "cloud-team-admin")
+          describeStack("Jenkins-Pipeline", "${account_path}", "cloud-team-admin")
         }
       }
     }
