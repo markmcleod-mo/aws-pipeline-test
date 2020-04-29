@@ -71,7 +71,7 @@
         node {
           echo "account=${account_path}"
           checkout scm
-          describeStack("Jenkins-Pipeline", "${account_path}", "cloud-team-admin")
+          //describeStack("Jenkins-Pipeline", "${account_path}", "cloud-team-admin")
         }
       }
     }
