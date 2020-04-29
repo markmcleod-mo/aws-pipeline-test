@@ -70,7 +70,7 @@
       tasks["${item}"] = {
         node {
           echo "account=${account_path}"
-          checkout scm
+//          checkout scm
           //describeStack("Jenkins-Pipeline", "${account_path}", "cloud-team-admin")
         }
       }
