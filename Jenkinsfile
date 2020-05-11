@@ -6,18 +6,14 @@ pipeline {
     CI = 'true'
     HOME = '.'
     npm_config_cache = 'npm-cache'
-      env.REGION = 'eu-west-2'
-      env.CREDS = 'test-master'
-      //Initialise what needs to be built and checkout the SCM
-      checkout scm
-      //Find all of the accounts in the management OU only, for now
-      accounts = org.getOrgAcctsByType("005402609678", "cloud-team-admin", "DEV")
-      echo "Pipeline - : ${accounts}"
+    REGION = 'eu-west-2'
+    CREDS = 'test-master'
   }
   stages {
-    stage('Install Packages') {
+    stage('Initialise') {
       steps {
-        sh 'pwd'
+        accounts = org.getOrgAcctsByType("005402609678", "cloud-team-admin", "DEV")
+        echo "Pipeline - : ${accounts}"
       }
     }
     stage('Test and Build') {
