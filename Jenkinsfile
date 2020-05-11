@@ -12,7 +12,7 @@ pipeline {
   stages {
     stage('Initialise') {
       steps {
-        accounts = org.getOrgAcctsByType("005402609678", "cloud-team-admin", "DEV")
+        def accounts = org.getOrgAcctsByType("005402609678", "cloud-team-admin", "DEV")
         echo "Pipeline - : ${accounts}"
       }
     }
