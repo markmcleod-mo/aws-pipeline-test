@@ -17,8 +17,8 @@
       //Initialise what needs to be built and checkout the SCM
       checkout scm
       //Find all of the accounts in the management OU only, for now
-      accounts = org.getOrgAcctsByType("005402609678", "cloud-team-admin", "DEV")
-      echo "Pipeline - : ${accounts}"
+      //accounts = org.getOrgAcctsByType("005402609678", "cloud-team-admin", "DEV")
+      //echo "Pipeline - : ${accounts}"
     }
 
   stage 'Validate Templates'
@@ -28,7 +28,7 @@
         node {
           echo "account_path=${account_path}"
           checkout scm
-          validateTemplates("./", "${account_path}", "cloud-team-admin")
+          //validateTemplates("./", "${account_path}", "cloud-team-admin")
         }
       }
     }
