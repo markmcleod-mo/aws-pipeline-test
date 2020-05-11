@@ -11,6 +11,7 @@
   stage 'Initialise'
 
     node {
+      agent any
       env.REGION = 'eu-west-2'
       env.CREDS = 'test-master'
       //Initialise what needs to be built and checkout the SCM
