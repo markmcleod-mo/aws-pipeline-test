@@ -8,12 +8,13 @@ pipeline {
     npm_config_cache = 'npm-cache'
     REGION = 'eu-west-2'
     CREDS = 'test-master'
+    accounts = ''
   }
   stages {
     stage('Initialise') {
       steps {
           script {
-            def accounts = org.getOrgAcctsByType("005402609678", "cloud-team-admin", "DEV")
+            accounts = org.getOrgAcctsByType("005402609678", "cloud-team-admin", "DEV")
             echo "Pipeline - : ${accounts}"
           }
       }
