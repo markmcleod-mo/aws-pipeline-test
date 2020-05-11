@@ -22,7 +22,9 @@ pipeline {
       parallel {
         stage('Run Tests') {
           steps {
-            sh 'java -version'
+            script{
+              validateTemplates("./", "${accounts}", "cloud-team-admin")
+            }
           }
         }
         stage('Create Build Artifacts') {
